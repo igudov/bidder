@@ -1,0 +1,113 @@
+
+<div>
+<% if notice %>
+<p id="notice"><%= notice %></p>
+<% end %>
+
+<h1>Job Description</h1>
+<p>  
+  <strong><%= @job.title %></strong>
+</p>
+
+<p>  
+  <%= @job.description %>
+</p>
+
+<p>
+  <%= @job.image_url %>
+</p>
+
+<p>
+  <strong>Category:</strong> <%= @job.category %>
+</p>
+
+<p>
+  <strong>Status:</strong> <%= @job.status %>
+</p>
+
+<p>
+  <strong>From:</strong> <%= @job.from %>
+</p>
+
+<p>
+  <strong>To:</strong> <%= @job.to %>
+</p>
+
+<h1>Bids</h1>
+<table>
+  <thead>      
+  </thead>
+  <tbody> 
+    <% current_user = User.new %>
+    <% @bids = Bid.where(job_id: @job.id).order(:user_id, created_at: :desc) %>
+    <% @bids.each do |bid| %>
+      <% if current_user != bid.user %>
+        <% current_user = bid.user %>
+        <div class="entry">
+          <tr class='list_line_odd'>          
+            <td class="list_bidder">
+              <%= link_to bid.user.name, bid.user %>
+            </td>
+            <td class="list_price">
+              <%= number_to_currency(bid.price) %>
+            </td>            
+            <td class="list_description">
+              <dl>                  
+                <dd>
+                  <%= truncate(strip_tags(bid.description), length: 80) %>
+                </dd>                  
+              </dl>
+            </td>     
+            <td class="list_actions">                
+              <% if session[:user_id] %>
+                <% if User.find_by(id: session[:user_id]).access == 'administrator' || bid.user_id == session[:user_id] %>                    
+                  <%= link_to 'Cancel', bid, method: :delete, data: { confirm: 'Are you sure?'} %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </div>
+      <% else %>
+        <div class="entry">
+          <tr class='list_line_even'>                      
+            <td class="list_bidder">              
+            </td>
+            <td class="list_price">
+              <%= number_to_currency(bid.price) %>
+            </td>
+            <td class="list_description">
+              <dl>                  
+                <dd>
+                  <%= truncate(strip_tags(bid.description), length: 80) %>
+                </dd>                  
+              </dl>
+            </td>     
+            <td class="list_actions">                
+              <% if session[:user_id] %>
+                <% if User.find_by(id: session[:user_id]).access == 'administrator' || bid.user_id == session[:user_id] %>                    
+                  <%= link_to 'Cancel', bid, method: :delete, data: { confirm: 'Are you sure?'} %>
+                <% end %>
+              <% end %>
+            </td>
+          </tr>
+        </div>
+      <% end %>
+    <% end %>
+  </tbody>
+</table>
+</div>
+<% if session[:user_id] %>
+  <% if User.find_by(id: session[:user_id]).access == 'contractor' %>
+    <% @bid = Bid.new %>
+    <div>
+      <fieldset>
+        <legend>New Bid</legend>
+        <%= render 'bids/form' %>
+      </fieldset>
+    </div>
+  <% end %>
+<% end %>
+
+
+<%= link_to 'Edit', edit_job_path(@job) %> |
+<%= link_to 'Back', jobs_path %>

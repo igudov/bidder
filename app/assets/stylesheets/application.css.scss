@@ -1,0 +1,153 @@
+/*
+ * This is a manifest file that'll be compiled into application.css, which will include all the files
+ * listed below.
+ *
+ * Any CSS and SCSS file within this directory, lib/assets/stylesheets, vendor/assets/stylesheets,
+ * or vendor/assets/stylesheets of plugins, if any, can be referenced here using a relative path.
+ *
+ * You're free to add application-wide styles to this file and they'll appear at the top of the
+ * compiled file, but it's generally better to create a new file per style scope.
+ *
+ *= require_self
+ *= require_tree .
+ */
+body {
+	margin: 0;
+	padding: 0;
+}
+
+#banner {
+	background: #0B3B0B;
+	padding: 20px;
+	border-bottom: 3px dashed;
+	/*font: small-caps 40px/40px "Times New Roman", serif;*/
+	color: #bfb;
+	height: 70px;
+
+	#banner_content {
+		width: 960px;
+		margin-left: auto;
+		margin-right: auto;
+	}	
+
+	img {
+		padding: 0;
+		position: absolute;		
+		height: 70px;
+	}	
+	a {
+		color: #bfb;
+		font-size: small;
+	}
+	#links {
+		position: absolute;
+		text-align: center;
+		margin-top: 70px;
+		width: 202px;		
+	}
+	#user_info {		
+		float: right;
+
+		table {
+			/*border-collapse: collapse;*/
+		}
+
+		table tr td {
+			padding: 5px;
+			vertical-align: top;
+			text-align: center;
+		}
+
+		img {
+			position: relative;
+		}
+		ul {
+			padding: 5px;		
+			li {
+			list-style: none;
+				a {
+				color: #bfb;
+				font-size: small;
+				}
+			}
+		}
+	}
+}
+
+#notice {
+	color: #000 !important;
+	border: 2px solid red;
+	padding: 1em;
+	margin-bottom: 2em;
+	background-color: #f0f0f0;
+	font: bold smaller sans-serif;
+}
+
+#columns {	
+	width: 960px;
+	margin-right: auto;
+	margin-left: auto; 
+
+	#main {
+		position:absolute;
+		width: 650px;
+		padding: 5px 5px;
+	}
+
+	#right-side {
+		float: right;	
+		border-left: 3px dashed gray;		
+		border-right: 3px dashed gray;
+		border-bottom: 3px dashed gray;
+		right: 0;	
+		width: 284px;		
+		padding: 5px 5px;
+		background-color:#F2F2F2;		
+
+		ul {
+		padding: 0;
+			li {
+			list-style: none;
+				a {
+				color: #bfb;
+				font-size: small;
+				}
+			}
+		}
+		table {
+			font-family: verdana,arial,sans-serif;
+			font-size: 9px;
+			color: #ffffff;
+			border-width: 1px;
+			border-color: #051d05;
+			border-collapse: collapse;
+			width: 284px;
+
+			th {
+				border-width: 1px;
+				padding: 8px;
+				border-style: solid;
+				border-color: #051d05;
+				background-color: #041704;
+			}
+			td {
+				font-size: 9px;
+				border-width: 1px;
+				padding: 8px;
+				border-style: solid;
+				border-color: #051d05;
+
+				a {
+					color: white;
+				}				
+			}
+
+			#line_odd {
+				background-color: #6c896c;
+			}
+			#line_even {
+				background-color: #3b623b;
+			}
+		}
+	}		
+}

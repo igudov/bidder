@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Bidder</title>
+  <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
+	<%= csrf_meta_tags %>
+</head>
+<body>
+	<div id="banner">
+		<div id="banner_content">
+			<%= image_tag("logo.gif") %>
+			<div id="links">
+				<a href="/">Home</a> | 
+				<a href="/">Contact</a>	| 	
+				<a href="/">About</a>
+			</div>
+			<div id="user_info">
+				<table>
+					<tbody>
+						<tr>
+							<% if session[:user_id] %>				
+								<td><%= image_tag(User.find_by(id: session[:user_id]).avatar_url) %></td>
+								<td>
+									<%= link_to User.find_by(id: session[:user_id]).name, User.find_by(id: session[:user_id]) %>									
+									<%= button_to 'Logout', logout_path, method: :delete %>								
+								</td>
+							<% else %>
+								<td><%= button_to 'Login', login_path, method: :get %></td>
+							<% end %>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+	<div id="columns">		
+		<div id="main" class="<%= controller.controller_name %>">
+			<%= yield %>
+		</div>
+		
+		<div id="right-side">			
+			<p>Total Active Jobs: <%= Job.count %> </p>
+			<p>Total Active Users: <%= User.count %> </p>
+
+
+			<% if session[:user_id] %>
+				<p>Your Active Jobs</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Job</th>
+							<th>Bids</th>
+							<th>Low</th>
+						</tr>
+					</thead>
+					<tbody>	
+						<% @my_jobs = Job.where(user_id: session[:user_id]).order(created_at: :desc) %>
+	    				<% @my_jobs.each do |job| %>				
+							<tr id="<%= cycle('line_odd','line_even') %>">
+								<td><%= link_to job.title, job %></td>
+								<% if job.bids.count == 0 %>
+									<td>-</td>
+									<td>-</td>
+								<% else %>
+									<td><%= job.bids.count %></td>
+									<td><%= number_to_currency(job.bids.order(created_at: :desc).take.price) %></td>
+								<% end %>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+				<p>Your Active Bids</p>
+				<table>
+					<thead>
+						<tr>
+							<th>Job</th>
+							<th>Bids</th>
+							<th>Your Bid</th>
+							<th>Lowest Bid</th>
+						</tr>
+					</thead>
+					<tbody>											
+						<% @bid_job_ids = Bid.where(user_id: session[:user_id]).order(created_at: :desc).select(:job_id).distinct %>
+						<% @bid_jobs = Job.where(id: @bid_job_ids) %>
+	    				<% @bid_jobs.each do |bid_job| %>				
+							<tr id="<%= cycle('line_odd','line_even') %>">
+								<td><%= link_to bid_job.title, bid_job %></td>
+								<td><%= bid_job.bids.count %></td>
+								<td><%= number_to_currency(bid_job.bids.order(created_at: :desc).take.price) %></td>
+								<td><%= number_to_currency(bid_job.bids.order(created_at: :desc).take.price) %></td>
+							</tr>
+						<% end %>
+					</tbody>
+				</table>
+			<% end %>
+		</div>				
+	</div>
+</body>
+</html>

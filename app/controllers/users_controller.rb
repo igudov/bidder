@@ -49,6 +49,7 @@ class UsersController < ApplicationController
   def create
     if (not session[:user_id]) || User.find_by(id: session[:user_id]).access == 'administrator'
       @user = User.new(user_params)
+      @user.bidder = TRUE
       respond_to do |format|
         if @user.save
           format.html { redirect_to jobs_url, notice: "User #{@user.name} was successfully created." }
@@ -120,6 +121,6 @@ class UsersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def user_params
-      params.require(:user).permit(:name, :password, :password_confirmation, :email, :avatar_url, :phone, :bidder, :info)
+      params.require(:user).permit(:name, :password, :password_confirmation, :email, :avatar_url, :phone, :bidder, :access, :info)
     end
 end

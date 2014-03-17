@@ -30,7 +30,7 @@ ActiveRecord::Schema.define(version: 20140301214043) do
     t.string   "title"
     t.text     "description"
     t.string   "image_url"
-    t.string   "category"
+    t.integer  "category_id"
     t.boolean  "status"
     t.datetime "from"
     t.datetime "to"

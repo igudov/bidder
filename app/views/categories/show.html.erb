@@ -1,5 +1,6 @@
+<% if notice %>
 <p id="notice"><%= notice %></p>
-
+<% end %>
 <p>
   <strong>Title:</strong>
   <%= @category.title %>
@@ -10,5 +11,61 @@
   <%= @category.parent %>
 </p>
 
-<%= link_to 'Edit', edit_category_path(@category) %> |
-<%= link_to 'Back', categories_path %>
+<% cache ['jobs', Job.latest] do %>
+  <table>
+    <thead>
+      <!--<tr>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Image url</th>
+        <th>Category</th>
+        <th>Status</th>
+        <th>From</th>
+        <th>To</th>
+        <th></th>
+        <th></th>
+        <th></th>
+      </tr>-->
+    </thead>
+    <tbody>      
+      <% @category.jobs.each do |job| %>
+        <% cache ['entry', job] do %>
+          <div class="entry">
+            <tr class="<%= cycle('list_line_odd','list_line_even') %>">
+              <td>
+                <%= image_tag(job.image_url, class: 'list_image') %>
+              </td>
+
+              <td class="list_description">
+                <dl>
+                  <dt><%= link_to job.title, job %></dt>
+                  <dd>
+                    <%= truncate(strip_tags(job.description), length: 80) %>
+                  </dd>
+                  <dd class="date">
+                    <b>From:</b> <%= job.from %>
+                  </dd>
+                  <dd class="date">
+                    <b>To:</b> <%= job.to %>
+                  </dd>
+                </dl>
+              </td>     
+              <td class="list_actions">
+                <%= link_to 'Show', job %>
+                <% if session[:user_id] %>
+                  <% if User.find_by(id: session[:user_id]).access == 'administrator' || job.user_id == session[:user_id] %>
+                    <%= link_to 'Destroy', job, method: :delete, data: { confirm: 'Are you sure?'} %>
+                  <% end %>
+                <% end %>
+              </td>
+            </tr>
+          </div>
+        <% end %>
+      <% end %>       
+    </tbody>
+  </table>
+<% end %> 
+<br>
+
+<%= link_to 'New Job', new_job_path %>
+

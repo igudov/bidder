@@ -11,7 +11,7 @@
   <%= @job.description %>
 </p>
 <p>
-  Posted in <i><%= @job.category.title %></i>
+  Posted in <i><%= link_to @job.category.title, @job.category %></i>
 </p>
 <p>
   <%= image_tag(@job.image_url, class: 'showcase') %>

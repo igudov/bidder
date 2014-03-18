@@ -5,7 +5,7 @@ class JobsController < ApplicationController
   # GET /jobs
   # GET /jobs.json
   def index
-    @jobs = Job.order(:updated_at)
+    @jobs = Job.order(updated_at: :desc)
   end
 
   # GET /jobs/1

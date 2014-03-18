@@ -1,10 +1,12 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: [:show, :edit, :update, :destroy]
+  before_action :authorize_admin, only: [:index, :edit, :new, :create, :update, :destroy]
+  skip_before_action :authorize, only: [:show]
 
   # GET /categories
   # GET /categories.json
   def index
-    @categories = Category.order(:title)
+    @categories = Category.order(:rgt)
   end
 
   # GET /categories/1

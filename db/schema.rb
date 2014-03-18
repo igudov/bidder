@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140301214043) do
+ActiveRecord::Schema.define(version: 20140318041111) do
 
   create_table "bids", force: true do |t|
     t.text     "description"
@@ -26,6 +26,17 @@ ActiveRecord::Schema.define(version: 20140301214043) do
   add_index "bids", ["job_id"], name: "index_bids_on_job_id"
   add_index "bids", ["user_id"], name: "index_bids_on_user_id"
 
+  create_table "categories", force: true do |t|
+    t.string   "title"
+    t.integer  "parent_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "lft"
+    t.integer  "rgt"
+  end
+
+  add_index "categories", ["parent_id"], name: "index_categories_on_parent_id"
+
   create_table "jobs", force: true do |t|
     t.string   "title"
     t.text     "description"
@@ -39,6 +50,7 @@ ActiveRecord::Schema.define(version: 20140301214043) do
     t.integer  "user_id"
   end
 
+  add_index "jobs", ["category_id"], name: "index_jobs_on_category_id"
   add_index "jobs", ["user_id"], name: "index_jobs_on_user_id"
 
   create_table "users", force: true do |t|

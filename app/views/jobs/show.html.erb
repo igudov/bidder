@@ -4,27 +4,23 @@
 <p id="notice"><%= notice %></p>
 <% end %>
 
-<h1>Job Description</h1>
-<p>  
+<h1>  
   <strong><%= @job.title %></strong>
-</p>
-
+</h1>
 <p>  
   <%= @job.description %>
 </p>
-
 <p>
-  <%= image_tag(@job.image_url) %>
+  Posted in <i><%= @job.category.title %></i>
 </p>
-
 <p>
-  <strong>Category:</strong> <%= @job.category_id %>
+  <%= image_tag(@job.image_url, class: 'showcase') %>
 </p>
-
+<!--
 <p>
   <strong>Status:</strong> <%= @job.status %>
 </p>
-
+-->
 <p>
   <strong>From:</strong> <%= @job.from %>
 </p>

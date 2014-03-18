@@ -1,4 +1,6 @@
 Bidder::Application.routes.draw do
+  resources :categories
+
   resources :bids
 
   get 'my_jobs' => 'my_jobs#index'

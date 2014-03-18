@@ -1,8 +1,9 @@
 class Job < ActiveRecord::Base
 belongs_to :user
+belongs_to :category
 has_many :bids, dependent: :destroy
 
-	validates :title, :description, :image_url, :category, presence: true
+	validates :title, :description, :image_url, presence: true
 	#validates :title, uniqueness: true
 	validates :image_url, allow_blank: true, format: {
 		with: %r{\.(gif|jpg|png)\Z}i,

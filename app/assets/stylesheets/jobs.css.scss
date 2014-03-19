@@ -7,12 +7,54 @@
 
 
 .jobs, .my_jobs, .categories {
+	.top-header {
+		text-align: center;
+		position: relative;
+		display: block;
+		font-size: 20px;
+		line-height: 200%;
+		
+		border-radius: 8px 8px 0 0;
+		position: relative;
+		color: #fff;		
+		text-decoration: none;
+		background: #041704;
+		background: -moz-linear-gradient(top, #1d2e1d 0%, #041704 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #1d2e1d), color-stop(100%, #041704));
+		background: -webkit-linear-gradient(top, #1d2e1d 0%, #041704 100%);
+		background: -o-linear-gradient(top, #1d2e1d 0%, #041704 100%);
+		background: -ms-linear-gradient(top, #1d2e1d 0%, #041704 100%);
+		background: linear-gradient(to bottom, #1d2e1d 0%,#041704 100%);
+
+	}
+
+	.bottom-header {
+		text-align: center;
+		position: relative;
+		display: block;
+		font-size: 20px;
+		line-height: 200%;
+		
+		border-radius: 0 0 8px 8px;
+		position: relative;
+		color: #fff;		
+		text-decoration: none;
+		background: #041704;
+		background: -moz-linear-gradient(top, #041704 0%, #1d2e1d 100%);
+		background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #041704), color-stop(100%, #1d2e1d));
+		background: -webkit-linear-gradient(top, #041704 0%, #1d2e1d 100%);
+		background: -o-linear-gradient(top, #041704 0%, #1d2e1d 100%);
+		background: -ms-linear-gradient(top, #041704 0%, #1d2e1d 100%);
+		background: linear-gradient(to bottom, #041704 0%, #1d2e1d 100%);
+
+	}
+
 	table {
 		border-collapse: collapse;
-		width: 630px;
-		border-width: 1px;				
+		width: 100%;
+		/*border-width: 1px;				
 		border-style: solid;
-		border-color: #051d05;
+		border-color: #051d05;*/
 	}
 
 	table tr td {

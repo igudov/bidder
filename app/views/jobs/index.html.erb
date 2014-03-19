@@ -1,4 +1,4 @@
-<h1>Listing jobs</h1>
+<div class="top-header">Listing jobs</div>
 <% if notice %>
 <p id="notice"><%= notice %></p>
 <% end %>
@@ -56,6 +56,4 @@
     </tbody>
   </table>
 <% end %> 
-<br>
-
-<%= link_to 'New Job', new_job_path %>
+<div class="bottom-header"><%= link_to 'New Job', new_job_path %></div>
